@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>排序算法</title>
+</head>
+<body>
+<script>
+//    冒泡排序
+     var bubbleSort = function (arr) {
+        var length = arr.length;
+        for(var i=0;i<length;i++){
+            for (var j= 0;j<length-1-i;j++){
+                if(arr[j] >arr[j+1]){
+                    var aux =arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1]= aux;
+                }
+            }
+        }
+         return arr;
+    };
+    var arr1=[3,1,2,6,8,9,3,4,14,11,"a","h","c","b"];
+    console.log(arr1);
+    console.log(bubbleSort(arr1));
+
+ //选择排序
+    var selectionSort = function (arr) {
+        var length = arr.length,indexMin;
+        for (var i=0;i<length-1;i++){
+            indexMin =i;
+            for (var j=i;j<length;j++){
+                if(arr[indexMin]>arr[j]){
+                    indexMin = j;
+                }
+            }
+            if(i !==indexMin){
+                var aux =arr[i];
+                arr[i] = arr[indexMin];
+                arr[indexMin]= aux;
+            }
+        }
+        return arr;
+    }
+var arr2=[3,1,2,6,8,9,3,4,14,11,"a","h","c","b"];
+  console.log(selectionSort(arr2));
+
+    //插入排序
+    var insertionSort = function(arr){
+        var len = arr.length;
+        var j,temp;
+        for( var i=1;i<len;i++){
+            j=i;
+            temp =arr[i];
+            while(j> 0 && arr[j-1]>temp){
+                arr[j]=arr[j-1];
+                j--;
+            }
+            arr[j]=temp;
+        }
+        return arr;
+    }
+var arr3=[3,1,2,6,8,9,3,4,14,11,"a","h","c","b"];
+console.log(insertionSort(arr3));
+
+//归并排序
+function merge(left, right) {
+    var tmp = [];
+    while (left.length && right.length) {
+        if (left[0] < right[0])
+            tmp.push(left.shift());
+        else
+            tmp.push(right.shift());
+    }
+
+    return tmp.concat(left, right);
+}
+
+function mergeSort(a) {
+    if (a.length === 1)
+        return a;
+
+    var mid = Math.floor(a.length / 2)
+            , left = a.slice(0, mid)
+            , right = a.slice(mid);
+    console.log(left);
+    console.log(right);
+    return merge(mergeSort(left), mergeSort(right));
+
+}
+
+var arr4=[3,1,2,6,8,9,3,4,14,11,"a","h","c","b"];
+console.log(mergeSort(arr4));
+
+//快速排序
+    function quickSort(a) {
+        if (a.length <= 1) return a;
+        var mid = Math.floor(a.length / 2)
+                , midItem = a.splice(mid, 1)[0]
+                , left = []
+                , right = [];
+        a.forEach(function(item) {
+            if (item <= midItem)
+                left.push(item);
+            else
+                right.push(item);
+        });
+
+        var _left = quickSort(left),
+            _right = quickSort(right);
+
+        console.log(_left)
+        console.log(_right)
+        return _left.concat(midItem, _right);
+
+    }
+var arr5 = [6,8,9,3,"a",11,"h",3,"c"];
+console.log(quickSort(arr1))
+console.log(arr5.sort())
+console.log(arr5.sort(function(v1,v2){
+    return v1 > v2;
+}))
+</script>
+</body>
+</html>

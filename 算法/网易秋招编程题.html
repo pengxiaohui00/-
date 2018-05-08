@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+   /* 小易准备去魔法王国采购魔法神器,购买魔法神器需要使用魔法币,但是小易现在一枚魔法币都没有,但是小易有两台魔法机器可以通过投入x(x可以为0)个魔法币产生更多的魔法币。
+    魔法机器1:如果投入x个魔法币,魔法机器会将其变为2x+1个魔法币
+    魔法机器2:如果投入x个魔法币,魔法机器会将其变为2x+2个魔法币
+    小易采购魔法神器总共需要n个魔法币,所以小易只能通过两台魔法机器产生恰好n个魔法币,小易需要你帮他设计一个投入方案使他最后恰好拥有n个魔法币。*/
+//   魔法机器1只能产生奇数，魔法机器2只能产生偶数;
+   var n =readline();
+   var result = [];
+   while(n) {
+       if(n % 2 == 0) {
+           n = (n - 2)/ 2;
+           result.unshift("2");
+       } else {
+           n = (n - 1)/ 2;
+           result.unshift("1");
+       }
+   }
+   print(result.join(""));
+   /*为了得到一个数的"相反数",我们将这个数的数字顺序颠倒,然后再加上原先的数得到"相反数"。
+    例如,为了得到1325的"相反数",首先我们将该数的数字顺序颠倒,我们得到5231,之后再加上原先的数,
+    我们得到5231+1325=6556.如果颠倒之后的数字有前缀零,前缀零将会被忽略。
+    例如n = 100, 颠倒之后是1.*/
+   var str1= readline();
+   var result,str2;
+   str2=str1.split("").reverse().join("");
+   print(parseInt(str1)+parseInt(str2));
+
+ /*  一个由小写字母组成的字符串可以看成一些同一字母的最大碎片组成的。
+   例如,"aaabbaaac"是由下面碎片组成的:'aaa','bb','c'。
+   牛牛现在给定一个字符串,请你帮助计算这个字符串的所有碎片的平均长度是多少。*/
+   var arr = readline().split('');
+   var total = 1, flag = arr[0];
+   for(let val of arr) {
+       if(val == flag) continue;
+       else {
+           total++;
+           flag = val;
+       };
+   }
+   print( (arr.length / total).toFixed(2) );
+   /*小易有一个长度为N的正整数数列A = {A[1], A[2], A[3]..., A[N]}。
+   牛博士给小易出了一个难题:
+           对数列A进行重新排列,使数列A满足所有的A[i] * A[i + 1](1 ≤ i ≤ N - 1)都是4的倍数。
+   小易现在需要判断一个数列是否可以重排之后满足牛博士的要求。*/
+   var n=readline();
+   for(;n>0;n--){
+       var m4=0;
+       var m1=0;
+       var i=readline();
+       var arr=readline().split(' ');
+       for(var j=0;j<i;j++){
+           if(arr[j]%4==0){m4++;}
+           if(arr[j]%2==1){m1++;}
+       }
+       if(m1-m4>1) {
+           print("No");
+       }
+       else{
+           print("Yes");
+       }
+   }
+//   小易正在玩一款新出的射击游戏,这个射击游戏在一个二维平面进行,小易在坐标原点(0,0),平面上有n只怪物,每个怪物有所在的坐标(x[i], y[i])。小易进行一次射击会把x轴和y轴上(包含坐标原点)的怪物一次性消灭。
+//   小易是这个游戏的VIP玩家,他拥有两项特权操作:
+//   1、让平面内的所有怪物同时向任意同一方向移动任意同一距离
+//   2、让平面内的所有怪物同时对于小易(0,0)旋转任意同一角度
+//   小易要进行一次射击。小易在进行射击前,可以使用这两项特权操作任意次。
+//   小易想知道在他射击的时候最多可以同时消灭多少只怪物,请你帮帮小易。
+   var len=readline();
+   var xArr=readline().split(' ');
+   var yArr=readline().split(' ');
+   var count;
+   var max=0;
+   for(var i=0;i<len;i++){
+       for(var j=i+1;j<len;j++){
+           for(var x=j+1;x<len;x++){
+               count=3;
+               for(var y=0;y<len;y++){
+                   if(y!=i&&y!=j&&y!=x){
+                       if(isParallel(i,j,y)||isVertical(i,j,x,y)){
+                           count++;
+                       }
+                   }
+               }
+               max=Math.max(max,count);
+           }
+       }
+   }
+   if(len<3){
+       print(len);
+   }
+   else{
+       print(max);
+   }
+   function isParallel(a,b,c){
+       var temp1=(xArr[c]-xArr[a])*(yArr[b]-yArr[a]);
+       var temp2=(xArr[b]-xArr[a])*(yArr[c]-yArr[a]);
+       //判断三点一线
+       if(temp1==temp2){
+           return true;
+       }
+       else{
+           return false;
+       }
+   }
+   function  isVertical(a,b,c,d){
+       //求系数
+       var a1=yArr[a]-yArr[b];
+       var b1=xArr[b]-xArr[a];
+       var a2=yArr[c]-yArr[d];
+       var b2=xArr[d]-xArr[c];
+       var temp=a1*a2+b1*b2;
+       //判断垂直
+       if(temp==0){
+           return true;
+       }
+       else{
+           return false;
+       }
+   }
+</script>
+</body>
+</html>
